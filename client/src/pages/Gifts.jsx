@@ -22,7 +22,8 @@ const Gifts = (props) => {
                          image={gift.image} 
                          name={gift.name} 
                          pricepoint={gift.pricepoint} 
-                         audience={gift.audience} />
+                         audience={gift.audience} 
+                         key={index}/>
 
                 ) : <h3 className="noResults">{'No Gifts Yet 😞'}</h3>
             }

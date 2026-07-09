@@ -1,6 +1,6 @@
 import { pool } from '../config/database.js'
 
-export const getGifts = async (request, response) => {
+const getGifts = async (request, response) => {
     try {
         const results = await pool.query('SELECT * FROM gifts ORDER BY id ASC');
         response.status(200).json(results.rows);
@@ -29,9 +29,8 @@ const updateGift = async (req, res) => {
     try {
         const id = parseInt(req.params.id)
         const { name, pricepoint, audience, image, description, submittedby, submittedon } = req.body
-        const results = await pool.query(`
-            UPDATE gifts SET name = $1, pricepoint = $2, audience = $3, image = $4, description = $5, submittedby = $6, submittedon = $7 WHERE id = $8`, [name, pricepoint, audience, image, description, submittedby, submittedon, id])
-            res.status(200).json(results.rows[0])
+        const results = await pool.query(`UPDATE gifts SET name = $1, pricepoint = $2, audience = $3, image = $4, description = $5, submittedby = $6, submittedon = $7 WHERE id = $8 RETURNING *`, [name, pricepoint, audience, image, description, submittedby, submittedon, id])
+        res.status(200).json(results.rows[0])
     } catch (error) {
         res.status(409).json( { error: error.message })
     }
@@ -40,11 +39,11 @@ const updateGift = async (req, res) => {
 const deleteGift = async (req, res) => {
     try {
         const id = parseInt(req.params.id)
-        const results = await pool.query(`DELETE FROM gifts WHERE id=$1`, [id])
+        const results = await pool.query(`DELETE FROM gifts WHERE id=$1 RETURNING *`, [id])
         res.status(200).json(results.rows[0])
     } catch (error) {
         res.status(409).json({ error: error.message })
     }
 }
 
-export default { createGift, updateGift, deleteGift }
+export default { getGifts, createGift, updateGift, deleteGift };

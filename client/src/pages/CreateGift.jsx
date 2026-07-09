@@ -30,11 +30,19 @@ const CreateGift = () => {
         })
     }
     
-    const createGift = (event) => {
+    const createGift = async (event) => {
         event.preventDefault()
 
-        
-        
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(gift)
+        }
+
+        await fetch('http://localhost:3000/gifts/', options)
+        window.location = "/"
     }
 
     return (
