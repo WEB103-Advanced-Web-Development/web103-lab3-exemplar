@@ -5,6 +5,7 @@ const router = express.Router()
 
 // GET /gifts/
 router.get('/', GiftsController.getGifts)
+router.get("/:id", GiftsController.getGiftById);
 
 router.post('/', GiftsController.createGift)
 router.delete('/:id', GiftsController.deleteGift)
