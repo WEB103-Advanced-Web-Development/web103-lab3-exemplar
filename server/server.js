@@ -13,7 +13,7 @@ app.use(cors())
 
 // routes
 app.use('/gifts', giftsRouter)
-
+app.use(express.json())
 
 // listens for app on port 300 for connections
 const PORT = 3000;
