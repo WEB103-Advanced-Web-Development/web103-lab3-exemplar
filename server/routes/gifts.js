@@ -1,5 +1,6 @@
 import express from 'express'
 import { getGifts } from '../controllers/gifts.js'
+import GiftsController from '../controllers/gifts.js'
 
 const router = express.Router()
 

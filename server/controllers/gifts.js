@@ -1,4 +1,4 @@
-import { pool } from '../db/db.js'
+import { pool } from '../config/database.js'
 
 export const getGifts = async (request, response) => {
     try {
@@ -46,3 +46,5 @@ const deleteGift = async (req, res) => {
         res.status(409).json({ error: error.message })
     }
 }
+
+export default { createGift, updateGift, deleteGift }
